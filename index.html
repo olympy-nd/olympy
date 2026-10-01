@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <!-- saved from url=(0036)https://arkanmecca.github.io/price1/ -->
-<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="منظومة تسعير الرحلات والخدمات وعروض الشركات"><title>رحلة | التسعير والعروض</title><style>/*
+<html lang="ar" dir="rtl"><head>
+<link rel="canonical" href="https://olympy-nd.github.io/olympy/">
+<link rel="icon" type="image/png" href="olympy-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_LY">
+<meta property="og:site_name" content="الأولمبي لخدمات الحج والعمرة">
+<meta property="og:title" content="الأولمبي | منظومة التسعير والعروض">
+<meta property="og:description" content="منظومة الأولمبي لخدمات الحج والعمرة — تسعير الرحلات والفنادق وإعداد عروض الأسعار.">
+<meta property="og:url" content="https://olympy-nd.github.io/olympy/">
+<meta property="og:image" content="https://olympy-nd.github.io/olympy/olympy-share.png">
+<meta property="og:image:secure_url" content="https://olympy-nd.github.io/olympy/olympy-share.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="شعار الأولمبي لخدمات الحج والعمرة">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="الأولمبي | منظومة التسعير والعروض">
+<meta name="twitter:description" content="منظومة الأولمبي لخدمات الحج والعمرة — تسعير الرحلات والفنادق وإعداد عروض الأسعار.">
+<meta name="twitter:image" content="https://olympy-nd.github.io/olympy/olympy-share.png">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="منظومة الأولمبي لخدمات الحج والعمرة — تسعير الرحلات والفنادق وإعداد عروض الأسعار."><title>الأولمبي | منظومة التسعير والعروض</title><style>/*
  * Rihla — warm travel-paper visual theme.
  * Al-Olympi Hajj & Umrah Services: logo embedded; brand blue #051B95.
  * All original selectors and custom-property names are preserved.
@@ -3156,6 +3175,7 @@ function proQuickRoomBuilder(){
 function proQuickForm(){
   const rates=proQuickSettings();
   const draft=proQuickState.input||proQuickState.draft?.input||{};
+   ['makkahHotelName','madinahHotelName'].forEach(key=>{if(typeof draft[key]==='string')draft[key]=draft[key].replace('إعامر المنار','إعمار المنار').replace('إمار النور','إعمار النور');});
   const extraItems=proQuickStoredExtraItems(draft);
   const v=(key,fallback)=>draft[key]!=null&&draft[key]!==''?draft[key]:fallback;
   return `<section class="quick-trip-heading"><div class="quick-trip-heading-icon" aria-hidden="true">✦</div><div><label for="q-trip-name">اسم الرحلة <span>عنوان البطاقة</span></label><input id="q-trip-name" name="q-tripName" type="text" maxlength="100" value="${c(v('tripName',''))}" placeholder="مثال: رحلة 15-2-2026" aria-describedby="q-trip-help"><small id="q-trip-help">يظهر في جميع قوالب المشاركة وفيسبوك عند تعبئته.</small></div></section><div class="quick-strip hotel-cards" data-step="0">
@@ -3899,7 +3919,7 @@ function fbKaabaPro(ctx,W,D,logo){
     const ch0=470,cw0=D.callig.width/D.callig.height*ch0,b=calligAdj(D.calligOpts,W-52-cw0,118,cw0,ch0,W,FB_H,'h'),ch=b.h,cw=b.w,cx=b.x,cy=b.y;
     const sh=ctx.createRadialGradient(cx+cw/2,cy+ch/2,20,cx+cw/2,cy+ch/2,ch*.62);sh.addColorStop(0,`rgba(3,18,107,${.55*b.a})`);sh.addColorStop(1,'rgba(3,18,107,0)');
     ctx.fillStyle=sh;ctx.fillRect(cx-ch*.4,cy-40,cw+ch*.8,ch+80);
-    // Header artwork is composited after the complete template in drawShareCalligraphy.
+    ctx.save();ctx.globalAlpha=b.a;drawCallig(ctx,D.callig,cx,cy,ch,{finish:shareCalligFinish(D.calligOpts?.hColor,'pearl')});ctx.restore();
   }else{ctx.save();ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=24;
   txt(ctx,D.calligHeader===false?'رحلة عمرة':'لبيك اللهم لبيك',W/2,556,{w:800,size:70,color:'#fff',align:'center'});ctx.restore();}
   const gold=ctx.createLinearGradient(W/2-90,0,W/2+90,0);gold.addColorStop(0,'rgba(255,255,255,0)');gold.addColorStop(.5,'#ffffff');gold.addColorStop(1,'rgba(255,255,255,0)');
@@ -3960,7 +3980,7 @@ function fbKaaba(ctx,W,D,logo,measure){
   ctx.strokeStyle='rgba(5,27,149,.18)';ctx.lineWidth=2;
   [[330,46],[270,38],[210,30]].forEach(([rx,ry])=>{ctx.beginPath();ctx.ellipse(W/2,ground-8,rx,ry,0,Math.PI,0);ctx.stroke();});
   drawKaaba(ctx,W/2,ground-14,170,96,190,36);
-  // Header artwork is composited after the complete template in drawShareCalligraphy.
+  if(D.callig){const ch0=400,cw0=D.callig.width/D.callig.height*ch0,b=calligAdj(D.calligOpts,W-60-cw0,190,cw0,ch0,W,FB_H,'h');ctx.save();ctx.globalAlpha=b.a;drawCallig(ctx,D.callig,b.x,b.y,b.h,{finish:shareCalligFinish(D.calligOpts?.hColor,'pearl')});ctx.restore();}
   }
   // content card
   const top=ground+12;
@@ -7210,23 +7230,10 @@ function drawCallig(ctx,img,x,y,h,{finish='gold',glow=true}={}){
 const SHARE_CALLIG_COLORS=[['auto','تلقائي','#dce4fa'],['gold','ذهبي','#d6ab45'],['brand','لون الشعار','#051b95'],['white','أبيض','#ffffff'],['silver','فضي','#aebbd0']];
 function shareCalligFinish(value,fallback){return value==='gold'?'gold':value==='brand'?SC.blue:value==='white'?'white':value==='silver'?'#b9c5d9':fallback;}
 const SHARE_CALLIG_KEY='olympi_share_calligraphy_v1';
-const SHARE_CALLIG_DEFAULTS_VERSION_KEY='olympi_share_calligraphy_defaults_version';
-const SHARE_CALLIG_DEFAULTS_VERSION=2;
 let shareCalligMemory={};
-function shareCalligSaved(){
-  let saved={};
-  try{
-    saved=JSON.parse(localStorage.getItem(SHARE_CALLIG_KEY)||'{}')||{};
-    if(Number(localStorage.getItem(SHARE_CALLIG_DEFAULTS_VERSION_KEY)||0)<SHARE_CALLIG_DEFAULTS_VERSION){
-      saved.kaaba={...(saved.kaaba||{}),header:true};
-      localStorage.setItem(SHARE_CALLIG_KEY,JSON.stringify(saved));
-      localStorage.setItem(SHARE_CALLIG_DEFAULTS_VERSION_KEY,String(SHARE_CALLIG_DEFAULTS_VERSION));
-    }
-  }catch(e){}
-  return saved;
-}
 function shareCalligOptions(tpl){
-  const saved=shareCalligSaved();
+  let saved=shareCalligMemory;
+  try{saved=JSON.parse(localStorage.getItem(SHARE_CALLIG_KEY)||'{}')||{};}catch(e){}
   const item=shareCalligMemory[tpl]||saved[tpl]||{};
   const num=(k,d)=>Number.isFinite(Number(item[k]))&&item[k]!==null&&item[k]!==''?Number(item[k]):d;
   const color=k=>SHARE_CALLIG_COLORS.some(row=>row[0]===item[k])?item[k]:'auto';
@@ -7235,7 +7242,7 @@ function shareCalligOptions(tpl){
     wSize:num('wSize',100),wAlpha:num('wAlpha',tpl==='royal'?13:9),wX:num('wX',0),wY:num('wY',0)};
 }
 function shareCalligSet(tpl,option,value){
-  const saved=shareCalligSaved();
+  let saved={};try{saved=JSON.parse(localStorage.getItem(SHARE_CALLIG_KEY)||'{}')||{};}catch(e){}
   shareCalligMemory[tpl]={...shareCalligOptions(tpl),[option]:option.endsWith('Color')?(SHARE_CALLIG_COLORS.some(row=>row[0]===value)?value:'auto'):typeof value==='boolean'?value:value===null?null:Number(value)};
   if(value===null)delete shareCalligMemory[tpl][option];
   try{localStorage.setItem(SHARE_CALLIG_KEY,JSON.stringify({...saved,...shareCalligMemory}));}catch(e){}
@@ -7260,7 +7267,7 @@ function calligAdj(o,x,y,w,h,W,H,p='h'){
   o=o||{};const s=(o[p+'Size']??100)/100,nh=h*s,nw=w*s;
   return {x:x+(w-nw)/2+(o[p+'X']??0)/100*W,y:y+(h-nh)/2+(o[p+'Y']??0)/100*H,w:nw,h:nh,a:Math.max(0,Math.min(1,(o[p+'Alpha']??100)/100))};
 }
-function drawShareCalligraphy(ctx,W,H,img,tpl,fmt,options,hasPhoto=false){
+function drawShareCalligraphy(ctx,W,H,img,tpl,fmt,options){
   if(!img)return;
   const ratio=img.width/img.height;
   if(options.watermark){
@@ -7272,8 +7279,8 @@ function drawShareCalligraphy(ctx,W,H,img,tpl,fmt,options,hasPhoto=false){
     drawCallig(ctx,img,b.x,b.y,b.h,{finish:shareCalligFinish(options.wColor,tpl==='royal'?'white':SC.blue),glow:false});
     ctx.restore();
   }
-  if(options.header){
-    const boxes={kaaba:{right:hasPhoto?52:60,y:hasPhoto?118:190,h:hasPhoto?470:400},royal:{right:64,y:44,h:fmt==='story'?235:200},clean:{center:W/2,y:58,h:175},ticket:{center:W/2,y:78,h:150},arch:{right:185,y:155,h:185},luxe:{right:115,y:105,h:220}};
+  if(options.header&&tpl!=='kaaba'){
+    const boxes={royal:{right:64,y:44,h:fmt==='story'?235:200},clean:{center:W/2,y:58,h:175},ticket:{center:W/2,y:78,h:150},arch:{right:185,y:155,h:185},luxe:{right:115,y:105,h:220}};
     const box=boxes[tpl]||{center:W/2,y:Math.round(H*.2),h:Math.round(H*.24)};
     const h=box.h,w=ratio*h,x=box.center!=null?box.center-w/2:W-box.right-w,b=calligAdj(options,x,box.y,w,h,W,H,'h');
     const light=['clean','ticket','luxe','o_frame','o_hero','o_modern'].includes(tpl);
@@ -7393,7 +7400,7 @@ async function proDrawShareCard(view,tpl='royal',fmt='story'){
   const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
   const ctx=canvas.getContext('2d');ctx.imageSmoothingQuality='high';
   draw(ctx,W,data,logo,false);
-  drawShareCalligraphy(ctx,W,H,callig,tpl,fmt,calligOptions,Boolean(data.photo));
+  drawShareCalligraphy(ctx,W,H,callig,tpl,fmt,calligOptions);
   const output=shareTripCanvas(canvas,data.tripName,tpl,fmt);
   return new Promise((resolve,reject)=>output.toBlob(blob=>blob?resolve({blob,url:URL.createObjectURL(blob)}):reject(new Error('PNG encoding failed')),'image/png'));
 }
@@ -7452,6 +7459,7 @@ async function proShareOpen(fmt){
       <button type="button" role="tab" id="share-tab-templates" aria-controls="share-panel-templates" aria-selected="true" data-editor-tab="templates">القوالب</button>
       <button type="button" role="tab" id="share-tab-calligraphy" aria-controls="share-panel-calligraphy" aria-selected="false" tabindex="-1" data-editor-tab="calligraphy">المخطوطة</button>
       <button type="button" role="tab" id="share-tab-details" aria-controls="share-panel-details" aria-selected="false" tabindex="-1" data-editor-tab="details">الصور والبيانات</button>
+      <button type="button" role="tab" id="share-tab-preview" aria-controls="share-panel-preview" aria-selected="false" tabindex="-1" data-editor-tab="preview">المعاينة</button>
     </nav>
     <div class="share-editor-workspace">
       <div class="share-editor-tools">
@@ -8173,7 +8181,7 @@ document.addEventListener('click',event=>{const ratesTab=event.target.closest?.(
 const qaIcon=document.createElement('link');qaIcon.rel='icon';qaIcon.href=Ke;document.head.appendChild(qaIcon);
 
 /* UI/UX layer. No change to pricing formulas, API actions, permissions or stored keys. */
-let uxExtrasOpen=true,uxBedsOpen=false;
+let uxExtrasOpen=null,uxBedsOpen=false;
 const uxBaseForm=proQuickForm,uxBasePage=proQuickPage,uxBaseRender=proQuickRender;
 // Every customer-facing representation uses the current negotiated price.
 const uxBasePrices=proQuickPrices;
@@ -8205,6 +8213,7 @@ proQuickForm=function(){
   const profit=root.querySelector('.quick-strip:not(.hotel-cards)');
   if(profit){profit.classList.add('ux-profit-block');profit.insertAdjacentHTML('afterbegin','<h3 class="ux-section-head"><span class="ux-section-number">2</span>الربح المقترح</h3>');}
   const draft=proQuickState.input||proQuickState.draft?.input||{};
+   ['makkahHotelName','madinahHotelName'].forEach(key=>{if(typeof draft[key]==='string')draft[key]=draft[key].replace('إعامر المنار','إعمار المنار').replace('إمار النور','إعمار النور');});
   ['makkah','madinah'].forEach(city=>{
     const label=root.querySelector('[name="q-'+city+'HotelName"]')?.closest('label');
     if(label)label.replaceWith(uxHotelField(city,draft));
@@ -8212,6 +8221,7 @@ proQuickForm=function(){
     if(caption&&Object.keys(draft.hotelRoomRates?.[city]||{}).length)caption.textContent='سعر الليلة الافتراضي (SAR)';
   });
   if(body){
+    if(uxExtrasOpen===null)uxExtrasOpen=extras.open;
     extras.open=uxExtrasOpen;
     extras.querySelector('.ex-label').textContent=uxExtrasOpen?'طيّ القسم':'فتح القسم';
     const bedRates=body.querySelector('.quick-two'),bedGrid=body.querySelector('.bed-distribution');
@@ -8366,7 +8376,7 @@ const uxRoomNames={'1':'فردية','2':'زوجية','3':'ثلاثية','4':'ر�
 const uxCityNames={makkah:'مكة المكرمة',madinah:'المدينة المنورة'};
 const uxCatalogFilter={query:'',city:'all'};
 let uxPicker=null,uxPickerIndex=-1,uxSuppressPickerFocus=false;
-const UX_DEFAULT_HOTELS=[{"id": "rihla-default-makkah-1", "name": "أمجاد الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-1"}, {"id": "rihla-default-makkah-2", "name": "سما الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-2"}, {"id": "rihla-default-makkah-3", "name": "سرايا الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-3"}, {"id": "rihla-default-makkah-4", "name": "عبير الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-4"}, {"id": "rihla-default-makkah-5", "name": "تاج بارك", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-5"}, {"id": "rihla-default-makkah-6", "name": "أبراج الوحدة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-6"}, {"id": "rihla-default-makkah-7", "name": "أبراج التيسير", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-7"}, {"id": "rihla-default-makkah-8", "name": "أنجم", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-8"}, {"id": "rihla-default-makkah-9", "name": "فيرمونت", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-9"}, {"id": "rihla-default-makkah-10", "name": "سويس أوتيل", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-10"}, {"id": "rihla-default-makkah-11", "name": "رافلز", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-11"}, {"id": "rihla-default-makkah-12", "name": "إعمار جراند", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-12"}, {"id": "rihla-default-makkah-13", "name": "إعامر المنار", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-13"}, {"id": "rihla-default-makkah-14", "name": "إمار النور", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-14"}, {"id": "rihla-default-makkah-15", "name": "منارة العزيزية", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-15"}, {"id": "rihla-default-makkah-16", "name": "المثابة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-16"}, {"id": "rihla-default-makkah-17", "name": "أبراج الريان", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-17"}, {"id": "rihla-default-makkah-18", "name": "أبراج الكسوة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-18"}, {"id": "rihla-default-madinah-1", "name": "المنطقة المركزية", "city": "madinah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-madinah-1"}, {"id": "rihla-default-madinah-2", "name": "إعمار إيليت", "city": "madinah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-madinah-2"}];
+const UX_DEFAULT_HOTELS=[{"id": "rihla-default-makkah-1", "name": "أمجاد الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-1"}, {"id": "rihla-default-makkah-2", "name": "سما الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-2"}, {"id": "rihla-default-makkah-3", "name": "سرايا الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-3"}, {"id": "rihla-default-makkah-4", "name": "عبير الضيافة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-4"}, {"id": "rihla-default-makkah-5", "name": "تاج بارك", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-5"}, {"id": "rihla-default-makkah-6", "name": "أبراج الوحدة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-6"}, {"id": "rihla-default-makkah-7", "name": "أبراج التيسير", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-7"}, {"id": "rihla-default-makkah-8", "name": "أنجم", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-8"}, {"id": "rihla-default-makkah-9", "name": "فيرمونت", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-9"}, {"id": "rihla-default-makkah-10", "name": "سويس أوتيل", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-10"}, {"id": "rihla-default-makkah-11", "name": "رافلز", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-11"}, {"id": "rihla-default-makkah-12", "name": "إعمار جراند", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-12"}, {"id": "rihla-default-makkah-13", "name": "إعمار المنار", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-13"}, {"id": "rihla-default-makkah-14", "name": "إعمار النور", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-14"}, {"id": "rihla-default-makkah-15", "name": "منارة العزيزية", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-15"}, {"id": "rihla-default-makkah-16", "name": "المثابة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-16"}, {"id": "rihla-default-makkah-17", "name": "أبراج الريان", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-17"}, {"id": "rihla-default-makkah-18", "name": "أبراج الكسوة", "city": "makkah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-makkah-18"}, {"id": "rihla-default-madinah-1", "name": "المنطقة المركزية", "city": "madinah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-madinah-1"}, {"id": "rihla-default-madinah-2", "name": "إعمار إيليت", "city": "madinah", "defaultRate": 0, "extraBedRate": 0, "roomRates": {}, "notes": "", "defaultHotelId": "rihla-default-madinah-2"}];
 function uxMergeDefaultHotels(rows){
   const merged=rows.map(row=>({...row}));
   UX_DEFAULT_HOTELS.forEach(seed=>{
@@ -8380,6 +8390,7 @@ function uxMergeDefaultHotels(rows){
 function uxHotels(){
   let rows=[];
   try{const value=JSON.parse(localStorage.getItem(UX_HOTELS_KEY)||'[]');if(Array.isArray(value))rows=value.filter(row=>row&&typeof row.id==='string'&&typeof row.name==='string'&&['makkah','madinah'].includes(row.city));}catch(e){}
+  rows=rows.map(row=>({...row,name:row.name.replace('إعامر المنار','إعمار المنار').replace('إمار النور','إعمار النور')}));
   return uxMergeDefaultHotels(rows);
 }
 function uxStoreHotels(rows){
