@@ -1,11 +1,11 @@
-/* Olympy service worker — build 333b49275b4d
+/* Olympy service worker — build ebda53e5999b
    Makes repeat visits open instantly from the device and keeps working on weak or no network.
    It never touches localStorage, so saved drafts and settings are not affected. */
 'use strict';
-const BUILD = '333b49275b4d';
+const BUILD = 'ebda53e5999b';
 const CACHE = 'olympy-' + BUILD;
 const RUNTIME = 'olympy-runtime-v1';
-const PRECACHE = ["./", "app-97425cc7ac63.js", "olympy-ui-0858ec38c59f.css", "assets/logo-9f7dc8dfc49d.png", "manifest.webmanifest", "assets/icon-192.png", "assets/apple-touch-icon.png", "assets/resource-4073c72e7248.woff2", "assets/resource-1c00b6198903.woff2", "assets/resource-63500720cebd.woff2", "assets/resource-c08169c2c58c.woff2"];
+const PRECACHE = ["./", "app-dd4efc7296e7.js", "olympy-ui-dc26233e97b8.css", "assets/logo-9f7dc8dfc49d.png", "manifest.webmanifest", "assets/icon-192.png", "assets/apple-touch-icon.png", "assets/resource-4073c72e7248.woff2", "assets/resource-1c00b6198903.woff2", "assets/resource-63500720cebd.woff2", "assets/resource-c08169c2c58c.woff2"];
 const SCOPE = new URL('./', self.registration.scope).href;
 const NAV_TIMEOUT_MS = 2000;
 
